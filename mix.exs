@@ -20,6 +20,7 @@ defmodule NxLinearRegression.MixProject do
   defp deps do
     [
       {:nx, "~> 0.7.2"},
+      {:axon, "~> 0.6.1"},
       {:nimble_csv, "~> 1.1"},
       {:scholar, "~> 0.3.0"},
       {:explorer, "~> 0.8.2"},

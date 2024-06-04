@@ -1,0 +1,105 @@
+ysaito@ysaito-ThinkPad-T495 % Rscript ./03-get-concentration.R                                                              May 26, 18:21:19
+[1] "元データ"
+# A tibble: 8 × 12
+      X1     X2     X3     X4     X5     X6     X7     X8     X9    X10    X11
+   <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>  <dbl>
+1 1.12   1.07   0.092  0.0932 0.147  0.130  0.136  0.148  0.275  0.288  0.0572
+2 0.670  0.661  0.091  0.0891 0.17   0.161  0.116  0.120  0.344  0.360  0.0579
+3 0.376  0.340  0.088  0.0852 0.127  0.117  0.0887 0.0892 0.343  0.363  0.0575
+4 0.190  0.187  0.0696 0.0678 0.118  0.116  0.0667 0.0662 0.416  0.459  0.0691
+5 0.116  0.111  0.0554 0.0545 0.245  0.243  0.12   0.123  0.268  0.291  0.0567
+6 0.0812 0.0817 0.143  0.138  0.0903 0.0879 0.117  0.128  0.353  0.369  0.0525
+7 0.0682 0.0665 0.102  0.101  0.163  0.17   0.210  0.211  0.0507 0.0504 0.0565
+8 0.0529 0.0529 0.0836 0.078  0.0693 0.0723 0.194  0.188  0.0504 0.0511 0.0572
+# ℹ 1 more variable: X12 <dbl>
+[1] "バックグラウンドの平均を撮って全体から引いたデータ"
+# A tibble: 8 × 12
+      X1     X2      X3      X4     X5     X6     X7     X8       X9      X10
+   <dbl>  <dbl>   <dbl>   <dbl>  <dbl>  <dbl>  <dbl>  <dbl>    <dbl>    <dbl>
+1 1.07   1.01   0.0391  0.0403  0.0941 0.077  0.0826 0.0956  0.222    0.235
+2 0.617  0.608  0.0381  0.0362  0.117  0.108  0.0631 0.0676  0.291    0.307
+3 0.323  0.287  0.0351  0.0323  0.0743 0.0641 0.0358 0.0363  0.290    0.310
+4 0.137  0.134  0.0167  0.0149  0.0646 0.0636 0.0138 0.0133  0.364    0.406
+5 0.0629 0.0581 0.00250 0.00160 0.192  0.190  0.0671 0.0697  0.215    0.238
+6 0.0283 0.0288 0.0902  0.0853  0.0374 0.035  0.0639 0.0747  0.3      0.316
+7 0.0153 0.0136 0.0486  0.0479  0.110  0.117  0.157  0.158  -0.0022  -0.00250
+8 0      0      0.0307  0.0251  0.0164 0.0194 0.141  0.136  -0.00250 -0.00180
+# ℹ 2 more variables: X11 <dbl>, X12 <dbl>
+[1] "標準データ standard"
+# A tibble: 14 × 2
+   Concentration Absorbance
+           <dbl>      <dbl>
+ 1        1000       1.07
+ 2         500       0.617
+ 3         250       0.323
+ 4         125       0.137
+ 5          62.5     0.0629
+ 6          31.2     0.0283
+ 7          15.6     0.0153
+ 8        1000       1.01
+ 9         500       0.608
+10         250       0.287
+11         125       0.134
+12          62.5     0.0581
+13          31.2     0.0288
+14          15.6     0.0136
+Saving 7 x 7 in image
+[1] "標準データのロジスティック回帰開始"
+Testing pars...
+The 4-parameters model showed better performance
+Instance of class nplr
+
+Call:
+nplr(x = Standard$Concentration, y = Standard$Absorbance)
+weights method: residuals
+
+4-P logistic model
+Bottom asymptote: 0.006489387
+Top asymptote: 1.936195
+Inflexion point at (x, y): 2.953461 0.9713423
+Goodness of fit: 0.9987979
+Weighted Goodness of fit: 0.9999795
+Standard error: 0.01331459 0.006026113
+
+[1] "標準データのロジスティック回帰 plots002.jpg に保存"
+Warning message:
+In polygon(xx, yy, border = NA, col = rgb(0.8, 0.8, 0.8, 0.4)) :
+  semi-transparency is not supported on this device: reported only once per page
+pdf
+  2
+[1] "計測データの整形"
+# A tibble: 40 × 3
+   Sample    Mean       SD
+   <fct>    <dbl>    <dbl>
+ 1 1      0.0397  0.000849
+ 2 2      0.0371  0.00134
+ 3 3      0.0337  0.00198
+ 4 4      0.0158  0.00127
+ 5 5      0.00205 0.000636
+ 6 6      0.0878  0.00346
+ 7 7      0.0482  0.000495
+ 8 8      0.0279  0.00396
+ 9 9      0.0855  0.0121
+10 10     0.112   0.00665
+# ℹ 30 more rows
+[1] "計測データのロジスティック回帰開始"
+Warning: One (or more) of the provided values were less or equal to the estimated bottom asymptote.
+These values have been replaced by the minimal possible value the model can estimate.
+# A tibble: 38 × 4
+   Absorbance x.025 Concentration x.975
+        <dbl> <dbl>         <dbl> <dbl>
+ 1     0.0397 20.5           43.2  63.6
+ 2     0.0371 15.9           40.7  61.2
+ 3     0.0337 13.1           37.1  59.0
+ 4     0.0158  2.79          16.5  43.4
+ 5     0.0152  2.43          15.6  41.6
+ 6     0.0878 67.4           86.2 104.
+ 7     0.0482 29.9           51.5  71.4
+ 8     0.0279  9.35          30.9  52.9
+ 9     0.0855 64.7           84.4 102.
+10     0.112  88.2          106.  123.
+# ℹ 28 more rows
+[1] "計測データのプロットを作成し、Plots003.jpg に保存"
+Saving 7 x 7 in image
+
+
