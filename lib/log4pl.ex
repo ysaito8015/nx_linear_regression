@@ -55,6 +55,6 @@ defmodule Log4Pl do
   end
 
   defn init_params do
-    {Nx.tensor(1.0), Nx.tensor(1.0)}
+    {Nx.tensor(1.0), Nx.tensor(1.0), Nx.tensor(1.0), Nx.tensor(1.0)}
   end
 end
