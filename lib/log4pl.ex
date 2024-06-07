@@ -1,4 +1,5 @@
 defmodule Log4Pl do
+  import Nx.Defn
   alias NimbleCSV.RFC4180, as: CSV
 
   def load_data do
@@ -39,22 +40,21 @@ defmodule Log4Pl do
     Nx.tensor(c ++ c)
   end
 
-  def loss_fn({a, b, c, d}, x, y) do
+  defn loss_fn({a, b, c, d}, x, y) do
     y_pred = log4pl(x, a, b, c, d)
     Nx.mean(Nx.pow(y_pred - y, 2))
   end
 
-  defp log4pl(x, a, b, c, d) do
+  defnp log4pl(x, a, b, c, d) do
     ((a - d) / (1.0 + Nx.pow(x / c, b)) + d)
   end
 
-  def get_model do
-    data = Stream.zip(concentration(), absorbance())
+  defn update({a, b, c, d} = params, x, y, lr) do
+    {grad_a, grad_b, grad_c, grad_d} = grad(params, &loss_fn(&1, x, y))
+    {a - grad_a * lr,  b - grad_b * lr, c - grad_c * lr, d - grad_d * lr}
+  end
 
-    model = Axon.input("input", shape: {nil, 32}) |> Axon.dense(1, activation: :sigmoid)
-
-    model
-    |> Axon.Loop.trainer(&loss_fn/3, Polaris.Optimizers.rmsprop(learning_rate: 0.01))
-    |> Axon.Loop.run(data)
+  defn init_params do
+    {Nx.tensor(1.0), Nx.tensor(1.0)}
   end
 end

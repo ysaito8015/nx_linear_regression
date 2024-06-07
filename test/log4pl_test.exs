@@ -2,10 +2,17 @@ defmodule Log4PlTest do
   use ExUnit.Case
 
   test "Four parameter logistic curve" do
-    dbg Log4Pl.absorbance
+    x = Log4Pl.absorbance
+    y = Log4Pl.concentration
+    epochs = 500
+    lr = 0.0001
+    init_params = Log4Pl.init_params()
 
-    dbg Log4Pl.concentration
+    acc =
+      for _ <- 1..epochs, reduce: init_params do
+        acc -> Log4Pl.update(acc, x, y, lr)
+      end
 
-    dbg Log4Pl.get_model
+    dbg acc
   end
 end
