@@ -1,6 +1,8 @@
 defmodule Sand.LinearRegressionTest do
   use ExUnit.Case
 
+  Nx.global_default_backend(EXLA.Backend)
+
   describe "Sand.LinearRegression" do
     test "original" do
       sample = [
