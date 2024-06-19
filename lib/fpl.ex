@@ -12,6 +12,6 @@ defmodule FPL do
 
   defn update({a, b, c, d} = params, x, y, lr) do
     {grad_a, grad_b, grad_c, grad_d} = grad(params, &loss_fn(&1, x, y))
-    {a - grad_a * lr,  b - grad_b * lr, c - grad_c * lr, d - grad_d * lr}
+    {a - grad_a * lr,  b - grad_b * lr, c - grad_c * lr * 1000, d - grad_d * lr}
   end
 end
