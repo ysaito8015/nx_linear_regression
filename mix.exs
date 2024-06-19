@@ -25,9 +25,7 @@ defmodule NxLinearRegression.MixProject do
       {:scholar, "~> 0.3.0"},
       {:explorer, "~> 0.8.2"},
       {:exla, "~> 0.7.2"},
-      {:kino_vega_lite, "~> 0.1.11"},
-      {:kino, "~> 0.12.3"},
-      {:kino_explorer, "~> 0.1.19"},
+      {:vega_lite, "~> 0.1.9"},
       {:tucan, "~> 0.3.1"}
     ]
   end
