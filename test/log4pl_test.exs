@@ -29,7 +29,7 @@ defmodule Log4PlTest do
     y = Nx.tensor([0.274, 0.347, 0.392, 0.420, 0.586, 1.115, 1.637, 2.227, 2.335, 2.372])
 
     epochs = 2500
-    lr = 0.02
+    lr = 0.05
 
     {a, b, c, d} = Log4Pl.init_params()
 
